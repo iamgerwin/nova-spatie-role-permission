@@ -19,6 +19,7 @@ class RoleSelect extends Select
 
         if (! $roleId) {
             $model->syncRoles([]);
+
             return;
         }
 

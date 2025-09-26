@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Iamgerwin\NovaSpatieRolePermission;
 
-use Illuminate\Routing\Router;
-use Illuminate\Support\Facades\Route;
 use Iamgerwin\NovaSpatieRolePermission\Http\Middleware\Authorize;
+use Illuminate\Support\Facades\Route;
 use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
 use Spatie\LaravelPackageTools\Package;

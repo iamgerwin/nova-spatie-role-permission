@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace Iamgerwin\NovaSpatieRolePermission;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
-use Iamgerwin\NovaSpatieRolePermission\Http\Middleware\Authorize;
 use Iamgerwin\NovaSpatieRolePermission\Nova\Permission;
 use Iamgerwin\NovaSpatieRolePermission\Nova\Role;
 use Iamgerwin\NovaSpatieRolePermission\Policies\PermissionPolicy;
 use Iamgerwin\NovaSpatieRolePermission\Policies\RolePolicy;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Menu\MenuItem;
 use Laravel\Nova\Menu\MenuSection;
 use Laravel\Nova\Nova;

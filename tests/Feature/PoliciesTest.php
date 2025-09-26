@@ -18,7 +18,7 @@ beforeEach(function () {
 
 describe('RolePolicy', function () {
     it('allows all actions by default', function () {
-        $policy = new RolePolicy();
+        $policy = new RolePolicy;
         $role = Role::create(['name' => 'admin']);
 
         expect($policy->viewAny($this->user))->toBeTrue()
@@ -31,7 +31,7 @@ describe('RolePolicy', function () {
     });
 
     it('allows attach and detach permissions', function () {
-        $policy = new RolePolicy();
+        $policy = new RolePolicy;
         $role = Role::create(['name' => 'admin']);
         $permission = Permission::create(['name' => 'edit posts']);
 
@@ -42,7 +42,7 @@ describe('RolePolicy', function () {
 
 describe('PermissionPolicy', function () {
     it('allows all actions by default', function () {
-        $policy = new PermissionPolicy();
+        $policy = new PermissionPolicy;
         $permission = Permission::create(['name' => 'edit posts']);
 
         expect($policy->viewAny($this->user))->toBeTrue()
@@ -55,7 +55,7 @@ describe('PermissionPolicy', function () {
     });
 
     it('allows attach and detach roles', function () {
-        $policy = new PermissionPolicy();
+        $policy = new PermissionPolicy;
         $permission = Permission::create(['name' => 'edit posts']);
         $role = Role::create(['name' => 'admin']);
 

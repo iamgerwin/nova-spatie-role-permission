@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Iamgerwin\NovaSpatieRolePermission\Nova;
 
-use Illuminate\Http\Request;
 use Iamgerwin\NovaSpatieRolePermission\Fields\RoleBooleanGroup;
+use Illuminate\Http\Request;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\MorphToMany;

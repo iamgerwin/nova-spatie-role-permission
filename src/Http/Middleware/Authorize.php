@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Iamgerwin\NovaSpatieRolePermission\Http\Middleware;
 
 use Closure;
-use Illuminate\Http\Request;
 use Iamgerwin\NovaSpatieRolePermission\NovaSpatieRolePermissionTool;
+use Illuminate\Http\Request;
 use Laravel\Nova\Nova;
 use Symfony\Component\HttpFoundation\Response;
 
