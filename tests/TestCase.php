@@ -3,7 +3,6 @@
 namespace Iamgerwin\NovaSpatieRolePermission\Tests;
 
 use Iamgerwin\NovaSpatieRolePermission\ToolServiceProvider;
-use Laravel\Nova\NovaServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\Permission\PermissionServiceProvider;
 
@@ -12,12 +11,16 @@ class TestCase extends Orchestra
     protected function setUp(): void
     {
         parent::setUp();
+
+        // Load Nova stubs for testing
+        if (!class_exists(\Laravel\Nova\Nova::class)) {
+            require_once __DIR__.'/Stubs/Nova.php';
+        }
     }
 
     protected function getPackageProviders($app)
     {
         return [
-            NovaServiceProvider::class,
             PermissionServiceProvider::class,
             ToolServiceProvider::class,
         ];
@@ -33,7 +36,19 @@ class TestCase extends Orchestra
 
         config()->set('auth.providers.users.model', \Iamgerwin\NovaSpatieRolePermission\Tests\Fixtures\User::class);
 
-        $migration = include __DIR__.'/../vendor/spatie/laravel-permission/database/migrations/create_permission_tables.php.stub';
-        $migration->up();
+        // Run migrations
+        $this->loadMigrationsFrom(__DIR__.'/../vendor/spatie/laravel-permission/database/migrations');
+
+        // Create users table for testing
+        $this->artisan('migrate', ['--database' => 'testing'])->run();
+
+        // Create users table
+        \Illuminate\Support\Facades\Schema::create('users', function ($table) {
+            $table->id();
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('password');
+            $table->timestamps();
+        });
     }
 }
