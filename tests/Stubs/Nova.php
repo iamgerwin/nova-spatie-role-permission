@@ -8,13 +8,15 @@ namespace Laravel\Nova;
 class Nova
 {
     protected static array $tools = [];
+
     protected static array $resources = [];
 
-    public static function tools(array $tools = null)
+    public static function tools(?array $tools = null)
     {
         if ($tools !== null) {
             static::$tools = $tools;
         }
+
         return static::$tools;
     }
 
@@ -40,8 +42,10 @@ class Nova
 
     public static function router($middleware, $name)
     {
-        return new class {
-            public function group($file) {
+        return new class
+        {
+            public function group($file)
+            {
                 return $this;
             }
         };
@@ -79,7 +83,9 @@ class Tool
 class Resource
 {
     public static $model;
+
     public static $title = 'id';
+
     public static $search = ['id'];
 
     public function authorizedToCreate($request): bool
@@ -118,6 +124,7 @@ namespace Laravel\Nova\Fields;
 class Field
 {
     public $attribute;
+
     protected $name;
 
     public function __construct($name, $attribute = null)
@@ -186,7 +193,7 @@ class MenuItem
 {
     public static function resource($resource)
     {
-        return new static();
+        return new static;
     }
 
     public function __call($method, $args)
@@ -199,7 +206,7 @@ class MenuSection
 {
     public static function make($title, $items = [])
     {
-        return new static();
+        return new static;
     }
 
     public function __call($method, $args)

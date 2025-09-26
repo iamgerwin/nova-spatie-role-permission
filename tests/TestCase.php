@@ -13,7 +13,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         // Load Nova stubs for testing
-        if (!class_exists(\Laravel\Nova\Nova::class)) {
+        if (! class_exists(\Laravel\Nova\Nova::class)) {
             require_once __DIR__.'/Stubs/Nova.php';
         }
     }
