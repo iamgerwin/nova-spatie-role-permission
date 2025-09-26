@@ -16,6 +16,19 @@ class TestCase extends Orchestra
         if (! class_exists(\Laravel\Nova\Nova::class)) {
             require_once __DIR__.'/Stubs/Nova.php';
         }
+
+        // Create users table
+        $this->app['db']->connection()->getSchemaBuilder()->create('users', function ($table) {
+            $table->id();
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('password');
+            $table->timestamps();
+        });
+
+        // Run permission migrations
+        include_once __DIR__.'/../vendor/spatie/laravel-permission/database/migrations/create_permission_tables.php.stub';
+        (new \CreatePermissionTables)->up();
     }
 
     protected function getPackageProviders($app)
@@ -28,27 +41,12 @@ class TestCase extends Orchestra
 
     public function getEnvironmentSetUp($app)
     {
-        config()->set('database.default', 'testing');
-        config()->set('database.connections.testing', [
+        $app['config']->set('database.default', 'testing');
+        $app['config']->set('database.connections.testing', [
             'driver' => 'sqlite',
             'database' => ':memory:',
         ]);
 
-        config()->set('auth.providers.users.model', \Iamgerwin\NovaSpatieRolePermission\Tests\Fixtures\User::class);
-
-        // Run migrations
-        $this->loadMigrationsFrom(__DIR__.'/../vendor/spatie/laravel-permission/database/migrations');
-
-        // Create users table for testing
-        $this->artisan('migrate', ['--database' => 'testing'])->run();
-
-        // Create users table
-        \Illuminate\Support\Facades\Schema::create('users', function ($table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->timestamps();
-        });
+        $app['config']->set('auth.providers.users.model', \Iamgerwin\NovaSpatieRolePermission\Tests\Fixtures\User::class);
     }
 }

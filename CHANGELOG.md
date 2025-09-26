@@ -5,6 +5,18 @@ All notable changes to `nova-spatie-role-permission` will be documented in this 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.6] - 2024-09-27
+
+### Fixed
+- Exclude all Nova-dependent files from PHPStan analysis
+- Fix test suite migration loading in TestCase
+- Resolve ApplicationNotAvailableException in tests
+- Complete PHPStan configuration for CI environment
+
+### Changed
+- Test setup now properly initializes database migrations
+- PHPStan excludes tool and service provider files
+
 ## [1.0.5] - 2024-09-27
 
 ### Fixed

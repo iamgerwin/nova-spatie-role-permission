@@ -13,6 +13,8 @@ parameters:
         - src/Nova/Permission.php
         - src/Nova/Role.php
         - src/Http/Middleware/Authorize.php
+        - src/NovaSpatieRolePermissionTool.php
+        - src/ToolServiceProvider.php
     tmpDir: build/phpstan
     checkOctaneCompatibility: false
     checkModelProperties: false
