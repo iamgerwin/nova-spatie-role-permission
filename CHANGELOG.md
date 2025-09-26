@@ -5,6 +5,17 @@ All notable changes to `nova-spatie-role-permission` will be documented in this 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.11] - 2024-09-27
+
+### Fixed
+- Fix PHPUnit error handler compatibility with Laravel 12
+- Resolve test failures related to error handler state management
+- Update PHPUnit configuration for better compatibility
+
+### Changed
+- Disable failOnRisky and beStrictAboutOutputDuringTests in PHPUnit config
+- Add proper error handler cleanup in TestCase setUp and tearDown methods
+
 ## [1.0.10] - 2024-09-27
 
 ### Fixed

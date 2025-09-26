@@ -12,6 +12,11 @@ class TestCase extends Orchestra
     {
         parent::setUp();
 
+        // Prevent error handler issues with Laravel 12
+        if (method_exists($this->app, 'flushHandlersState')) {
+            $this->app->flushHandlersState();
+        }
+
         // Load Nova stubs for testing
         if (! class_exists(\Laravel\Nova\Nova::class)) {
             require_once __DIR__.'/Stubs/Nova.php';
@@ -28,6 +33,16 @@ class TestCase extends Orchestra
 
         // Create permission tables
         $this->createPermissionTables();
+    }
+
+    protected function tearDown(): void
+    {
+        // Properly clean up error handlers
+        if (method_exists($this->app, 'flushHandlersState')) {
+            $this->app->flushHandlersState();
+        }
+
+        parent::tearDown();
     }
 
     protected function createPermissionTables(): void
