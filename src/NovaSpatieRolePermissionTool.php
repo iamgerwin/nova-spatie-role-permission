@@ -45,7 +45,7 @@ class NovaSpatieRolePermissionTool extends BaseToolClass
     public function menu(Request $request): mixed
     {
         // Only create menu if Nova is available
-        if (!class_exists(\Laravel\Nova\Menu\MenuSection::class)) {
+        if (! class_exists(\Laravel\Nova\Menu\MenuSection::class)) {
             return null;
         }
 
