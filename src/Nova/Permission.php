@@ -130,21 +130,26 @@ class Permission extends Resource
 
     public function authorizedToCreate($request): bool
     {
-        return auth()->user()->can('create', static::getModel());
+        return $request->user()?->can('create', static::getModel()) ?? false;
     }
 
     public function authorizedToUpdate($request): bool
     {
-        return auth()->user()->can('update', $this->resource);
+        return $request->user()?->can('update', $this->resource) ?? false;
     }
 
     public function authorizedToDelete($request): bool
     {
-        return auth()->user()->can('delete', $this->resource);
+        return $request->user()?->can('delete', $this->resource) ?? false;
     }
 
     public function authorizedToView($request): bool
     {
-        return auth()->user()->can('view', $this->resource);
+        return $request->user()?->can('view', $this->resource) ?? false;
+    }
+
+    public function authorizedToReplicate($request): bool
+    {
+        return false;
     }
 }
