@@ -5,6 +5,18 @@ All notable changes to `nova-spatie-role-permission` will be documented in this 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.13] - 2024-09-27
+
+### Fixed
+- Remove HandleExceptions::flushState() calls that cause errors in Laravel 12
+- Fix error handler compatibility issues in test suite
+- Simplify test bootstrap to avoid conflicts
+
+### Changed
+- Remove HandleExceptions usage from TestCase
+- Update test bootstrap to set environment variable instead
+- Add error handler restoration in Pest configuration
+
 ## [1.0.12] - 2024-09-27
 
 ### Fixed

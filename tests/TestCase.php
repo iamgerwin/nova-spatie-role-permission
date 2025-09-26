@@ -3,7 +3,6 @@
 namespace Iamgerwin\NovaSpatieRolePermission\Tests;
 
 use Iamgerwin\NovaSpatieRolePermission\ToolServiceProvider;
-use Illuminate\Foundation\Bootstrap\HandleExceptions;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\Permission\PermissionServiceProvider;
 
@@ -33,11 +32,6 @@ class TestCase extends Orchestra
 
     protected function tearDown(): void
     {
-        // Flush Laravel error handler state to prevent conflicts
-        if (class_exists(HandleExceptions::class)) {
-            HandleExceptions::flushState();
-        }
-
         parent::tearDown();
     }
 
