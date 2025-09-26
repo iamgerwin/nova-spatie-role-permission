@@ -18,8 +18,12 @@ class PermissionPolicy
      */
     public function before(Authenticatable $user, $ability): ?bool
     {
-        if ($user->hasRole('super-admin')) {
-            return true;
+        try {
+            if ($user->hasRole('super-admin')) {
+                return true;
+            }
+        } catch (\Exception $e) {
+            // Role doesn't exist or other error, continue with normal checks
         }
 
         return null;
@@ -30,6 +34,10 @@ class PermissionPolicy
      */
     public function viewAny(Authenticatable $user): bool
     {
+        if ($this->isSuperAdmin($user)) {
+            return true;
+        }
+
         return $this->hasAnyPermission($user, ['view-permissions', 'manage-permissions']);
     }
 
@@ -38,6 +46,10 @@ class PermissionPolicy
      */
     public function view(Authenticatable $user, $permission): bool
     {
+        if ($this->isSuperAdmin($user)) {
+            return true;
+        }
+
         return $this->hasAnyPermission($user, ['view-permissions', 'manage-permissions']);
     }
 
@@ -46,6 +58,10 @@ class PermissionPolicy
      */
     public function create(Authenticatable $user): bool
     {
+        if ($this->isSuperAdmin($user)) {
+            return true;
+        }
+
         return $this->hasAnyPermission($user, ['create-permissions', 'manage-permissions']);
     }
 
@@ -54,6 +70,10 @@ class PermissionPolicy
      */
     public function update(Authenticatable $user, $permission): bool
     {
+        if ($this->isSuperAdmin($user)) {
+            return true;
+        }
+
         return $this->hasAnyPermission($user, ['edit-permissions', 'manage-permissions']);
     }
 
@@ -62,6 +82,10 @@ class PermissionPolicy
      */
     public function delete(Authenticatable $user, $permission): bool
     {
+        if ($this->isSuperAdmin($user)) {
+            return true;
+        }
+
         return $this->hasAnyPermission($user, ['delete-permissions', 'manage-permissions']);
     }
 
@@ -70,6 +94,10 @@ class PermissionPolicy
      */
     public function restore(Authenticatable $user, $permission): bool
     {
+        if ($this->isSuperAdmin($user)) {
+            return true;
+        }
+
         return $this->hasAnyPermission($user, ['restore-permissions', 'manage-permissions']);
     }
 
@@ -78,6 +106,10 @@ class PermissionPolicy
      */
     public function forceDelete(Authenticatable $user, $permission): bool
     {
+        if ($this->isSuperAdmin($user)) {
+            return true;
+        }
+
         return $this->hasAnyPermission($user, ['force-delete-permissions', 'manage-permissions']);
     }
 
@@ -86,6 +118,10 @@ class PermissionPolicy
      */
     public function attachRole(Authenticatable $user, $permission, $role): bool
     {
+        if ($this->isSuperAdmin($user)) {
+            return true;
+        }
+
         return $this->hasAnyPermission($user, ['assign-roles', 'manage-permissions']);
     }
 
@@ -94,6 +130,10 @@ class PermissionPolicy
      */
     public function detachRole(Authenticatable $user, $permission, $role): bool
     {
+        if ($this->isSuperAdmin($user)) {
+            return true;
+        }
+
         return $this->hasAnyPermission($user, ['revoke-roles', 'manage-permissions']);
     }
 
@@ -115,5 +155,18 @@ class PermissionPolicy
         }
 
         return false;
+    }
+
+    /**
+     * Check if user is a super admin.
+     * Safely handles cases where the role doesn't exist.
+     */
+    protected function isSuperAdmin(Authenticatable $user): bool
+    {
+        try {
+            return $user->hasRole('super-admin');
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 }

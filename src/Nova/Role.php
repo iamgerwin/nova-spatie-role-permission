@@ -122,27 +122,27 @@ class Role extends Resource
         return [];
     }
 
-    public static function authorizedToCreate(Request $request): bool
+    public function authorizedToCreate($request): bool
     {
         return $request->user()?->can('create', static::getModel()) ?? false;
     }
 
-    public function authorizedToUpdate(Request $request): bool
+    public function authorizedToUpdate($request): bool
     {
         return $request->user()?->can('update', $this->resource) ?? false;
     }
 
-    public function authorizedToDelete(Request $request): bool
+    public function authorizedToDelete($request): bool
     {
         return $request->user()?->can('delete', $this->resource) ?? false;
     }
 
-    public function authorizedToView(Request $request): bool
+    public function authorizedToView($request): bool
     {
         return $request->user()?->can('view', $this->resource) ?? false;
     }
 
-    public function authorizedToReplicate(Request $request): bool
+    public function authorizedToReplicate($request): bool
     {
         return false;
     }
