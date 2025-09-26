@@ -5,6 +5,16 @@ All notable changes to `nova-spatie-role-permission` will be documented in this 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.5] - 2024-09-27
+
+### Fixed
+- Exclude Nova-dependent files from PHPStan analysis
+- Prevent static analysis errors when Nova is not installed
+- Add excludePaths configuration for files requiring Nova classes
+
+### Changed
+- PHPStan now skips analysis of Nova resources, fields, and actions
+
 ## [1.0.4] - 2024-09-27
 
 ### Fixed

@@ -267,7 +267,9 @@ public function tools()
 composer test
 ```
 
-## Code Quality
+## Development
+
+### Code Quality
 
 Run code formatting:
 
@@ -280,6 +282,8 @@ Run static analysis:
 ```bash
 composer analyse
 ```
+
+> **Note:** Static analysis excludes Nova-dependent files since Nova is not available during package development. These files are fully functional when Nova is installed in your application.
 
 ## Changelog
 

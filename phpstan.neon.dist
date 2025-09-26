@@ -5,6 +5,14 @@ parameters:
     level: 5
     paths:
         - src
+    excludePaths:
+        - src/Actions/AttachToRole.php
+        - src/Fields/PermissionBooleanGroup.php
+        - src/Fields/RoleBooleanGroup.php
+        - src/Fields/RoleSelect.php
+        - src/Nova/Permission.php
+        - src/Nova/Role.php
+        - src/Http/Middleware/Authorize.php
     tmpDir: build/phpstan
     checkOctaneCompatibility: false
     checkModelProperties: false
