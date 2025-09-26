@@ -5,6 +5,16 @@ All notable changes to `nova-spatie-role-permission` will be documented in this 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.9] - 2024-09-27
+
+### Fixed
+- Fix authorizedToCreate method signature in Role and Permission resources
+- Changed static method to instance method to match Laravel Nova Resource interface
+- Resolved test failures caused by incompatible method overrides
+
+### Changed
+- authorizedToCreate is now an instance method in both Role and Permission Nova resources
+
 ## [1.0.8] - 2024-09-27
 
 ### Fixed

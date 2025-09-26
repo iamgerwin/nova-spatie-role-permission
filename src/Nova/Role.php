@@ -122,7 +122,7 @@ class Role extends Resource
         return [];
     }
 
-    public static function authorizedToCreate(Request $request): bool
+    public function authorizedToCreate(Request $request): bool
     {
         return auth()->user()->can('create', static::getModel());
     }
