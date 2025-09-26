@@ -11,3 +11,7 @@ parameters:
     ignoreErrors:
         - '#Call to an undefined method#'
         - '#Access to an undefined property#'
+        - '#Class Laravel\\Nova\\[a-zA-Z\\\]+ not found#'
+        - '#Parameter \$[a-zA-Z]+ of method [a-zA-Z\\\:]+\(\) has invalid type Laravel\\Nova\\[a-zA-Z\\\]+#'
+        - '#Return type .* of method .* has invalid type Laravel\\Nova\\.*#'
+        - '#Call to static method .* on an unknown class Laravel\\Nova\\.*#'
