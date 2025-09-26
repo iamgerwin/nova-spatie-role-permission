@@ -38,7 +38,7 @@ class TestCase extends Orchestra
 
         $schema = $this->app['db']->connection()->getSchemaBuilder();
 
-        if (!$schema->hasTable($tableNames['permissions'] ?? 'permissions')) {
+        if (! $schema->hasTable($tableNames['permissions'] ?? 'permissions')) {
             $schema->create($tableNames['permissions'] ?? 'permissions', function ($table) {
                 $table->bigIncrements('id');
                 $table->string('name');
@@ -48,7 +48,7 @@ class TestCase extends Orchestra
             });
         }
 
-        if (!$schema->hasTable($tableNames['roles'] ?? 'roles')) {
+        if (! $schema->hasTable($tableNames['roles'] ?? 'roles')) {
             $schema->create($tableNames['roles'] ?? 'roles', function ($table) use ($teams) {
                 $table->bigIncrements('id');
                 if ($teams) {
@@ -66,7 +66,7 @@ class TestCase extends Orchestra
             });
         }
 
-        if (!$schema->hasTable($tableNames['model_has_permissions'] ?? 'model_has_permissions')) {
+        if (! $schema->hasTable($tableNames['model_has_permissions'] ?? 'model_has_permissions')) {
             $schema->create($tableNames['model_has_permissions'] ?? 'model_has_permissions', function ($table) use ($tableNames, $columnNames, $teams) {
                 $table->unsignedBigInteger('permission_id');
                 $table->string('model_type');
@@ -88,7 +88,7 @@ class TestCase extends Orchestra
             });
         }
 
-        if (!$schema->hasTable($tableNames['model_has_roles'] ?? 'model_has_roles')) {
+        if (! $schema->hasTable($tableNames['model_has_roles'] ?? 'model_has_roles')) {
             $schema->create($tableNames['model_has_roles'] ?? 'model_has_roles', function ($table) use ($tableNames, $columnNames, $teams) {
                 $table->unsignedBigInteger('role_id');
                 $table->string('model_type');
@@ -110,7 +110,7 @@ class TestCase extends Orchestra
             });
         }
 
-        if (!$schema->hasTable($tableNames['role_has_permissions'] ?? 'role_has_permissions')) {
+        if (! $schema->hasTable($tableNames['role_has_permissions'] ?? 'role_has_permissions')) {
             $schema->create($tableNames['role_has_permissions'] ?? 'role_has_permissions', function ($table) use ($tableNames) {
                 $table->unsignedBigInteger('permission_id');
                 $table->unsignedBigInteger('role_id');
