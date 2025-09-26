@@ -8,7 +8,6 @@ use Iamgerwin\NovaSpatieRolePermission\Nova\Permission;
 use Iamgerwin\NovaSpatieRolePermission\Nova\Role;
 use Iamgerwin\NovaSpatieRolePermission\Policies\PermissionPolicy;
 use Iamgerwin\NovaSpatieRolePermission\Policies\RolePolicy;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
 class NovaSpatieRolePermissionTool extends BaseToolClass
@@ -42,7 +41,7 @@ class NovaSpatieRolePermissionTool extends BaseToolClass
         Gate::policy($permissionModel, $this->getPermissionPolicy());
     }
 
-    public function menu(Request $request): mixed
+    public function menu($request)
     {
         // Only create menu if Nova is available
         if (! class_exists(\Laravel\Nova\Menu\MenuSection::class)) {

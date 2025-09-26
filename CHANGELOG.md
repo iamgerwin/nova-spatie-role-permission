@@ -5,6 +5,17 @@ All notable changes to `nova-spatie-role-permission` will be documented in this 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.8] - 2024-09-27
+
+### Fixed
+- Fix menu method signature compatibility with Laravel Nova Tool base class
+- Remove type hints to match parent class method signature
+- Apply code styling fixes from CI pipeline
+
+### Changed
+- Menu method no longer uses typed parameters for Nova compatibility
+- Removed unused Illuminate\Http\Request import
+
 ## [1.0.7] - 2024-09-27
 
 ### Fixed
