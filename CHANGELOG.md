@@ -5,6 +5,18 @@ All notable changes to `nova-spatie-role-permission` will be documented in this 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.3] - 2024-09-27
+
+### Fixed
+- Fix ToolServiceProvider to conditionally load Nova features
+- Prevent class not found errors when Nova is not installed
+- Add BaseToolClass to handle Nova Tool inheritance gracefully
+- Fix package discovery during composer autoload
+
+### Changed
+- Service provider now checks for Nova existence before registering features
+- Tool class conditionally extends Nova Tool or base class
+
 ## [1.0.2] - 2024-09-27
 
 ### Fixed

@@ -21,18 +21,18 @@ A comprehensive Laravel Nova tool for managing roles and permissions with Spatie
 
 - PHP 8.3 or higher
 - Laravel 11.0 or 12.0
-- Laravel Nova 5.0
+- Laravel Nova 5.0 (required at runtime, not during installation)
 - Spatie Laravel Permission 6.0
 
 ## Installation
 
-First, ensure you have Laravel Nova installed in your application. Nova is a paid product and requires a license.
-
-Then install the package via composer:
+Install the package via composer:
 
 ```bash
 composer require iamgerwin/nova-spatie-role-permission
 ```
+
+> **Note:** Laravel Nova must be installed and configured in your application before using this package's features. The package can be installed without Nova for development/testing purposes.
 
 Publish and run the migrations from Spatie Laravel Permission if you haven't already:
 

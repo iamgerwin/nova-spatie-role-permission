@@ -6,8 +6,6 @@ namespace Iamgerwin\NovaSpatieRolePermission;
 
 use Iamgerwin\NovaSpatieRolePermission\Http\Middleware\Authorize;
 use Illuminate\Support\Facades\Route;
-use Laravel\Nova\Events\ServingNova;
-use Laravel\Nova\Nova;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -22,16 +20,19 @@ class ToolServiceProvider extends PackageServiceProvider
 
     public function packageBooted(): void
     {
-        $this->routes();
+        // Only register Nova routes and listeners if Nova is installed
+        if (class_exists(\Laravel\Nova\Nova::class)) {
+            $this->routes();
 
-        Nova::serving(function (ServingNova $event) {
-            Nova::provideToScript([
-                'nova-spatie-role-permission' => [
-                    'role_resource' => config('nova-spatie-role-permission.role_resource'),
-                    'permission_resource' => config('nova-spatie-role-permission.permission_resource'),
-                ],
-            ]);
-        });
+            \Laravel\Nova\Nova::serving(function (\Laravel\Nova\Events\ServingNova $event) {
+                \Laravel\Nova\Nova::provideToScript([
+                    'nova-spatie-role-permission' => [
+                        'role_resource' => config('nova-spatie-role-permission.role_resource'),
+                        'permission_resource' => config('nova-spatie-role-permission.permission_resource'),
+                    ],
+                ]);
+            });
+        }
     }
 
     protected function routes(): void
@@ -40,7 +41,7 @@ class ToolServiceProvider extends PackageServiceProvider
             return;
         }
 
-        Nova::router(['nova', Authorize::class], 'nova-spatie-role-permission')
+        \Laravel\Nova\Nova::router(['nova', Authorize::class], 'nova-spatie-role-permission')
             ->group(__DIR__.'/../routes/inertia.php');
 
         Route::middleware(['nova', Authorize::class])

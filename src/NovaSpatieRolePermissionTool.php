@@ -10,12 +10,8 @@ use Iamgerwin\NovaSpatieRolePermission\Policies\PermissionPolicy;
 use Iamgerwin\NovaSpatieRolePermission\Policies\RolePolicy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
-use Laravel\Nova\Menu\MenuItem;
-use Laravel\Nova\Menu\MenuSection;
-use Laravel\Nova\Nova;
-use Laravel\Nova\Tool;
 
-class NovaSpatieRolePermissionTool extends Tool
+class NovaSpatieRolePermissionTool extends BaseToolClass
 {
     protected ?string $roleResource = null;
 
@@ -31,10 +27,13 @@ class NovaSpatieRolePermissionTool extends Tool
 
     public function boot(): void
     {
-        Nova::resources([
-            $this->getRoleResource(),
-            $this->getPermissionResource(),
-        ]);
+        // Only register resources if Nova is available
+        if (class_exists(\Laravel\Nova\Nova::class)) {
+            \Laravel\Nova\Nova::resources([
+                $this->getRoleResource(),
+                $this->getPermissionResource(),
+            ]);
+        }
 
         $roleModel = $this->getRoleModel();
         $permissionModel = $this->getPermissionModel();
@@ -45,9 +44,14 @@ class NovaSpatieRolePermissionTool extends Tool
 
     public function menu(Request $request): mixed
     {
-        return MenuSection::make(__('nova-spatie-role-permission::navigation.sidebar-label'), [
-            MenuItem::resource($this->getRoleResource()),
-            MenuItem::resource($this->getPermissionResource()),
+        // Only create menu if Nova is available
+        if (!class_exists(\Laravel\Nova\Menu\MenuSection::class)) {
+            return null;
+        }
+
+        return \Laravel\Nova\Menu\MenuSection::make(__('nova-spatie-role-permission::navigation.sidebar-label'), [
+            \Laravel\Nova\Menu\MenuItem::resource($this->getRoleResource()),
+            \Laravel\Nova\Menu\MenuItem::resource($this->getPermissionResource()),
         ])->icon('shield-check')->collapsable();
     }
 
