@@ -5,6 +5,21 @@ All notable changes to `nova-spatie-role-permission` will be documented in this 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.12] - 2024-09-27
+
+### Fixed
+- Resolve persistent PHPUnit error handler conflicts with Laravel 12
+- Fix HandleExceptions::flushState() error in test suite
+- Add custom test bootstrap file for proper initialization
+
+### Changed
+- Move error handler cleanup to tearDown method only
+- Update PHPUnit bootstrap configuration to use custom bootstrap file
+- Simplify TestBench version constraint in composer.json
+
+### Added
+- Custom test bootstrap.php file for handling error state management
+
 ## [1.0.11] - 2024-09-27
 
 ### Fixed
