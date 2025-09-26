@@ -221,7 +221,40 @@ You can add your own translations in the `resources/lang/vendor/nova-spatie-role
 
 ## Authorization
 
-By default, all actions are allowed. To implement custom authorization logic:
+As of version 1.1.0, the package includes secure default policies that check for actual permissions. The policies support granular permissions and a super admin role that bypasses all checks.
+
+### Default Permission Structure
+
+The package's policies check for these permissions:
+
+#### Role Management Permissions
+- `view-roles` - View role listings and details
+- `create-roles` - Create new roles
+- `edit-roles` - Update existing roles
+- `delete-roles` - Delete roles
+- `restore-roles` - Restore soft-deleted roles
+- `force-delete-roles` - Permanently delete roles
+- `assign-permissions` - Attach permissions to roles
+- `revoke-permissions` - Detach permissions from roles
+- `manage-roles` - Full role management (grants all role permissions)
+
+#### Permission Management Permissions
+- `view-permissions` - View permission listings and details
+- `create-permissions` - Create new permissions
+- `edit-permissions` - Update existing permissions
+- `delete-permissions` - Delete permissions
+- `restore-permissions` - Restore soft-deleted permissions
+- `force-delete-permissions` - Permanently delete permissions
+- `assign-roles` - Attach roles to permissions
+- `revoke-roles` - Detach roles from permissions
+- `manage-permissions` - Full permission management (grants all permission permissions)
+
+#### Super Admin Role
+- Users with the `super-admin` role bypass all authorization checks
+
+### Custom Authorization Policies
+
+To override the default policies with your own logic:
 
 1. Create custom policy classes:
 
@@ -234,14 +267,24 @@ use Spatie\Permission\Models\Role;
 
 class RolePolicy
 {
+    public function before(User $user, $ability): ?bool
+    {
+        // Super admin bypasses all checks
+        if ($user->hasRole('super-admin')) {
+            return true;
+        }
+
+        return null;
+    }
+
     public function viewAny(User $user): bool
     {
-        return $user->hasPermissionTo('view roles');
+        return $user->hasPermissionTo('view-roles');
     }
 
     public function create(User $user): bool
     {
-        return $user->hasPermissionTo('create roles');
+        return $user->hasPermissionTo('create-roles');
     }
 
     // ... other methods

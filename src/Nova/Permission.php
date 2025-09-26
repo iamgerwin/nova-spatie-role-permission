@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Iamgerwin\NovaSpatieRolePermission\Nova;
 
 use Iamgerwin\NovaSpatieRolePermission\Fields\RoleBooleanGroup;
+use Illuminate\Http\Request;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\MorphToMany;
@@ -128,23 +129,28 @@ class Permission extends Resource
         ];
     }
 
-    public function authorizedToCreate($request): bool
+    public static function authorizedToCreate(Request $request): bool
     {
-        return auth()->user()->can('create', static::getModel());
+        return $request->user()?->can('create', static::getModel()) ?? false;
     }
 
-    public function authorizedToUpdate($request): bool
+    public function authorizedToUpdate(Request $request): bool
     {
-        return auth()->user()->can('update', $this->resource);
+        return $request->user()?->can('update', $this->resource) ?? false;
     }
 
-    public function authorizedToDelete($request): bool
+    public function authorizedToDelete(Request $request): bool
     {
-        return auth()->user()->can('delete', $this->resource);
+        return $request->user()?->can('delete', $this->resource) ?? false;
     }
 
-    public function authorizedToView($request): bool
+    public function authorizedToView(Request $request): bool
     {
-        return auth()->user()->can('view', $this->resource);
+        return $request->user()?->can('view', $this->resource) ?? false;
+    }
+
+    public function authorizedToReplicate(Request $request): bool
+    {
+        return false;
     }
 }

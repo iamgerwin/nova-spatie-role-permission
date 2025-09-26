@@ -5,6 +5,35 @@ All notable changes to `nova-spatie-role-permission` will be documented in this 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2024-09-27
+
+### Breaking Changes
+- Policies now check for actual permissions instead of always returning true
+- Authorization methods are now properly static where required
+
+### Added
+- Proper permission-based authorization in RolePolicy and PermissionPolicy
+- Super admin role support with bypass authorization
+- Null-safe user handling in all authorization methods
+- `before` method in policies for super admin bypass
+- `authorizedToReplicate` method in Nova resources (returns false by default)
+
+### Fixed
+- Fixed authorization method signatures to match Nova's requirements
+- `authorizedToCreate` is now properly static in Nova resources
+- Added null-safe operators to prevent "Call to a member function on null" errors
+- Added proper Request type hints where required
+
+### Changed
+- Enhanced all policy methods to check for specific permissions
+- Policies now support granular permissions like `view-roles`, `create-permissions`, etc.
+- Added fallback to broader permissions like `manage-roles` and `manage-permissions`
+- Improved error handling with null coalescence operators
+
+### Security
+- Implemented proper authorization checks instead of permissive defaults
+- Added role-based access control with super admin support
+
 ## [1.0.14] - 2024-09-27
 
 ### Fixed
