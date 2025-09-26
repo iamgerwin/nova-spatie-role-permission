@@ -6,100 +6,11 @@ namespace Iamgerwin\NovaSpatieRolePermission\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Exceptions\PermissionDoesNotExist;
 
 class PermissionPolicy
 {
     use HandlesAuthorization;
-
-    /**
-     * Determine if the user can view any permissions.
-     */
-    public function viewAny(Authenticatable $user): bool
-    {
-        return $user->hasPermissionTo('view-permissions') ||
-               $user->hasPermissionTo('manage-permissions') ||
-               $user->hasRole('super-admin');
-    }
-
-    /**
-     * Determine if the user can view the permission.
-     */
-    public function view(Authenticatable $user, $permission): bool
-    {
-        return $user->hasPermissionTo('view-permissions') ||
-               $user->hasPermissionTo('manage-permissions') ||
-               $user->hasRole('super-admin');
-    }
-
-    /**
-     * Determine if the user can create permissions.
-     */
-    public function create(Authenticatable $user): bool
-    {
-        return $user->hasPermissionTo('create-permissions') ||
-               $user->hasPermissionTo('manage-permissions') ||
-               $user->hasRole('super-admin');
-    }
-
-    /**
-     * Determine if the user can update the permission.
-     */
-    public function update(Authenticatable $user, $permission): bool
-    {
-        return $user->hasPermissionTo('edit-permissions') ||
-               $user->hasPermissionTo('manage-permissions') ||
-               $user->hasRole('super-admin');
-    }
-
-    /**
-     * Determine if the user can delete the permission.
-     */
-    public function delete(Authenticatable $user, $permission): bool
-    {
-        return $user->hasPermissionTo('delete-permissions') ||
-               $user->hasPermissionTo('manage-permissions') ||
-               $user->hasRole('super-admin');
-    }
-
-    /**
-     * Determine if the user can restore the permission.
-     */
-    public function restore(Authenticatable $user, $permission): bool
-    {
-        return $user->hasPermissionTo('restore-permissions') ||
-               $user->hasPermissionTo('manage-permissions') ||
-               $user->hasRole('super-admin');
-    }
-
-    /**
-     * Determine if the user can permanently delete the permission.
-     */
-    public function forceDelete(Authenticatable $user, $permission): bool
-    {
-        return $user->hasPermissionTo('force-delete-permissions') ||
-               $user->hasPermissionTo('manage-permissions') ||
-               $user->hasRole('super-admin');
-    }
-
-    /**
-     * Determine if the user can attach roles to the permission.
-     */
-    public function attachRole(Authenticatable $user, $permission, $role): bool
-    {
-        return $user->hasPermissionTo('assign-roles') ||
-               $user->hasPermissionTo('manage-permissions') ||
-               $user->hasRole('super-admin');
-    }
-
-    /**
-     * Determine if the user can detach roles from the permission.
-     */
-    public function detachRole(Authenticatable $user, $permission, $role): bool
-    {
-        return $user->hasPermissionTo('revoke-roles') ||
-               $user->hasPermissionTo('manage-permissions') ||
-               $user->hasRole('super-admin');
-    }
 
     /**
      * Check if any authorization should be bypassed.
@@ -112,5 +23,97 @@ class PermissionPolicy
         }
 
         return null;
+    }
+
+    /**
+     * Determine if the user can view any permissions.
+     */
+    public function viewAny(Authenticatable $user): bool
+    {
+        return $this->hasAnyPermission($user, ['view-permissions', 'manage-permissions']);
+    }
+
+    /**
+     * Determine if the user can view the permission.
+     */
+    public function view(Authenticatable $user, $permission): bool
+    {
+        return $this->hasAnyPermission($user, ['view-permissions', 'manage-permissions']);
+    }
+
+    /**
+     * Determine if the user can create permissions.
+     */
+    public function create(Authenticatable $user): bool
+    {
+        return $this->hasAnyPermission($user, ['create-permissions', 'manage-permissions']);
+    }
+
+    /**
+     * Determine if the user can update the permission.
+     */
+    public function update(Authenticatable $user, $permission): bool
+    {
+        return $this->hasAnyPermission($user, ['edit-permissions', 'manage-permissions']);
+    }
+
+    /**
+     * Determine if the user can delete the permission.
+     */
+    public function delete(Authenticatable $user, $permission): bool
+    {
+        return $this->hasAnyPermission($user, ['delete-permissions', 'manage-permissions']);
+    }
+
+    /**
+     * Determine if the user can restore the permission.
+     */
+    public function restore(Authenticatable $user, $permission): bool
+    {
+        return $this->hasAnyPermission($user, ['restore-permissions', 'manage-permissions']);
+    }
+
+    /**
+     * Determine if the user can permanently delete the permission.
+     */
+    public function forceDelete(Authenticatable $user, $permission): bool
+    {
+        return $this->hasAnyPermission($user, ['force-delete-permissions', 'manage-permissions']);
+    }
+
+    /**
+     * Determine if the user can attach roles to the permission.
+     */
+    public function attachRole(Authenticatable $user, $permission, $role): bool
+    {
+        return $this->hasAnyPermission($user, ['assign-roles', 'manage-permissions']);
+    }
+
+    /**
+     * Determine if the user can detach roles from the permission.
+     */
+    public function detachRole(Authenticatable $user, $permission, $role): bool
+    {
+        return $this->hasAnyPermission($user, ['revoke-roles', 'manage-permissions']);
+    }
+
+    /**
+     * Check if user has any of the given permissions.
+     * Safely handles cases where permissions don't exist.
+     */
+    protected function hasAnyPermission(Authenticatable $user, array $permissions): bool
+    {
+        foreach ($permissions as $permission) {
+            try {
+                if ($user->hasPermissionTo($permission)) {
+                    return true;
+                }
+            } catch (PermissionDoesNotExist $e) {
+                // Permission doesn't exist, continue checking others
+                continue;
+            }
+        }
+
+        return false;
     }
 }
