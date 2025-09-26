@@ -7,4 +7,4 @@ if (class_exists(\Illuminate\Foundation\Bootstrap\HandleExceptions::class)) {
     \Illuminate\Foundation\Bootstrap\HandleExceptions::flushState();
 }
 
-require __DIR__ . '/../vendor/autoload.php';
+require __DIR__.'/../vendor/autoload.php';
