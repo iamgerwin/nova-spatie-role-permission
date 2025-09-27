@@ -15,9 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Option to assign super admin role during installation
 
 ### Fixed
-- Fixed fatal error: `authorizedToCreate` method is now properly static in Nova resources
+- Fixed test suite error handler issues causing risky test warnings in CI
+- Removed problematic error handler management from TestCase
 - Resolved permission lockout issue when no users have permissions
-- Corrected authorization method signatures to match Nova's requirements
 
 ### Changed
 - Enhanced installation process with interactive prompts
