@@ -130,15 +130,17 @@ class InstallCommand extends Command
     {
         $userModel = config('auth.providers.users.model');
 
-        if (!class_exists($userModel)) {
+        if (! class_exists($userModel)) {
             $this->error('User model not found');
+
             return;
         }
 
         $user = $userModel::where('email', $email)->first();
 
-        if (!$user) {
+        if (! $user) {
             $this->error("User with email {$email} not found");
+
             return;
         }
 
