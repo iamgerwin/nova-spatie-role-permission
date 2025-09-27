@@ -5,6 +5,25 @@ All notable changes to `nova-spatie-role-permission` will be documented in this 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.1] - 2024-09-28
+
+### Added
+- Installation command (`php artisan nova-permission:install`) for easy setup
+- Configuration file (`config/nova-permission.php`) for package customization
+- Default permissions seeding with installation command
+- Super admin role creation with all permissions
+- Option to assign super admin role during installation
+
+### Fixed
+- Fixed fatal error: `authorizedToCreate` method is now properly static in Nova resources
+- Resolved permission lockout issue when no users have permissions
+- Corrected authorization method signatures to match Nova's requirements
+
+### Changed
+- Enhanced installation process with interactive prompts
+- Configuration can now be published separately
+- Improved documentation with Quick Setup section
+
 ## [1.1.0] - 2024-09-27
 
 ### Breaking Changes
