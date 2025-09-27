@@ -29,6 +29,7 @@ class TestCase extends Orchestra
                     if (str_contains($errfile, 'HandleExceptions.php')) {
                         return true;
                     }
+
                     return false;
                 });
             }
