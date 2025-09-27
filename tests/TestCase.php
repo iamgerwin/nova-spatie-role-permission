@@ -8,7 +8,6 @@ use Spatie\Permission\PermissionServiceProvider;
 
 class TestCase extends Orchestra
 {
-
     protected function setUp(): void
     {
         parent::setUp();
