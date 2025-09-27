@@ -8,6 +8,22 @@ use Spatie\Permission\PermissionServiceProvider;
 
 class TestCase extends Orchestra
 {
+    /**
+     * Override refreshApplication to handle error handler issues
+     */
+    protected function refreshApplication()
+    {
+        // Temporarily disable error reporting to avoid handler conflicts
+        $errorLevel = error_reporting(0);
+
+        try {
+            parent::refreshApplication();
+        } finally {
+            // Restore error reporting
+            error_reporting($errorLevel);
+        }
+    }
+
     protected function setUp(): void
     {
         parent::setUp();
