@@ -3,41 +3,18 @@
 namespace Iamgerwin\NovaSpatieRolePermission\Tests;
 
 use Iamgerwin\NovaSpatieRolePermission\ToolServiceProvider;
-use Illuminate\Foundation\Bootstrap\HandleExceptions;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\Permission\PermissionServiceProvider;
 
 class TestCase extends Orchestra
 {
-    /**
-     * Override to prevent error handler issues with Laravel 12
-     */
-    protected function refreshApplication()
-    {
-        // Store current error handler state
-        $errorReporting = error_reporting();
-
-        // Temporarily suppress error handler warnings
-        error_reporting(0);
-
-        parent::refreshApplication();
-
-        // Restore error reporting
-        error_reporting($errorReporting);
-
-        // Ensure HandleExceptions is in a clean state
-        if (class_exists(HandleExceptions::class) && method_exists(HandleExceptions::class, 'flushState')) {
-            try {
-                // Wrap in try-catch to prevent any issues
-                @HandleExceptions::flushState();
-            } catch (\Throwable $e) {
-                // Ignore any errors from flushing state
-            }
-        }
-    }
-
     protected function setUp(): void
     {
+        // Fix for HandleExceptions::flushState() error in older versions
+        if (! defined('LARAVEL_START')) {
+            define('LARAVEL_START', microtime(true));
+        }
+
         parent::setUp();
 
         // Load Nova stubs for testing

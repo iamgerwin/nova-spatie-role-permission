@@ -41,6 +41,47 @@ php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvid
 php artisan migrate
 ```
 
+### Quick Setup
+
+Use the installation command to quickly set up the package with default permissions and super-admin role:
+
+```bash
+php artisan nova-permission:install
+```
+
+This command will:
+- Publish the configuration file
+- Clear permission cache
+- Seed default permissions (optional)
+- Create super-admin role with all permissions (optional)
+- Assign super-admin role to a user (optional)
+
+You can also use command options for non-interactive installation:
+
+```bash
+# Install with default permissions and super-admin role
+php artisan nova-permission:install --seed
+
+# Install and assign super-admin to a specific user
+php artisan nova-permission:install --seed --super-admin=admin@example.com
+```
+
+### Configuration
+
+Publish the configuration file to customize the package:
+
+```bash
+php artisan vendor:publish --tag=nova-permission-config
+```
+
+This will create `config/nova-permission.php` where you can customize:
+- Default guard for roles and permissions
+- Super admin role name
+- Enable/disable permission checking
+- Cache settings
+- Default permissions for seeding
+- Custom models, resources, and policies
+
 ## Usage
 
 ### Basic Setup

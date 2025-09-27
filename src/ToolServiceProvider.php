@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Iamgerwin\NovaSpatieRolePermission;
 
+use Iamgerwin\NovaSpatieRolePermission\Console\Commands\InstallCommand;
 use Iamgerwin\NovaSpatieRolePermission\Http\Middleware\Authorize;
 use Illuminate\Support\Facades\Route;
 use Spatie\LaravelPackageTools\Package;
@@ -15,6 +16,8 @@ class ToolServiceProvider extends PackageServiceProvider
     {
         $package
             ->name('nova-spatie-role-permission')
+            ->hasConfigFile('nova-permission')
+            ->hasCommand(InstallCommand::class)
             ->hasTranslations();
     }
 
