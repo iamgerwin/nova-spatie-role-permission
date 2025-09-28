@@ -45,11 +45,27 @@ class Role extends Resource
     /**
      * Get the underlying model instance for the resource.
      *
-     * @return class-string<\Spatie\Permission\Models\Role>
+     * @return \Spatie\Permission\Models\Role|\Illuminate\Database\Eloquent\Model
      */
     public function model()
     {
-        return config('permission.models.role', static::$model);
+        return $this->resource;
+    }
+
+    /**
+     * Get a fresh instance of the model represented by the resource.
+     *
+     * @return \Spatie\Permission\Models\Role|\Illuminate\Database\Eloquent\Model
+     */
+    public static function newModel()
+    {
+        $model = config('permission.models.role', static::$model);
+
+        if (! class_exists($model)) {
+            throw new \Exception("Role model class [{$model}] not found. Please check your permission.models.role configuration.");
+        }
+
+        return new $model;
     }
 
     public static function label(): string
@@ -141,7 +157,7 @@ class Role extends Resource
         return [];
     }
 
-    public static function authorizedToCreate($request): bool
+    public function authorizedToCreate($request): bool
     {
         return $request->user()?->can('create', static::getModel()) ?? false;
     }
