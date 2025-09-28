@@ -32,15 +32,15 @@ class VerifyCommand extends Command
         foreach ($checks as $check => $result) {
             if ($result['passed']) {
                 $this->info("✓ {$check}");
-                if (!empty($result['info'])) {
+                if (! empty($result['info'])) {
                     $this->line("  └─ {$result['info']}");
                 }
             } else {
                 $this->error("✗ {$check}");
-                if (!empty($result['error'])) {
+                if (! empty($result['error'])) {
                     $this->line("  └─ {$result['error']}");
                 }
-                if (!empty($result['fix'])) {
+                if (! empty($result['fix'])) {
                     $this->warn("  └─ Fix: {$result['fix']}");
                 }
                 $allPassed = false;
@@ -51,12 +51,14 @@ class VerifyCommand extends Command
 
         if ($allPassed) {
             $this->info('✅ All checks passed! Nova Spatie Role Permission is properly installed.');
+
             return 0;
         } else {
             $this->error('❌ Some checks failed. Please fix the issues above.');
             $this->newLine();
             $this->warn('Quick fix for most issues:');
             $this->line('php artisan nova-permission:install');
+
             return 1;
         }
     }
@@ -69,7 +71,7 @@ class VerifyCommand extends Command
         if ($exists) {
             return [
                 'passed' => true,
-                'info' => 'Config file found at: ' . $configPath,
+                'info' => 'Config file found at: '.$configPath,
             ];
         }
 
@@ -124,7 +126,7 @@ class VerifyCommand extends Command
 
         $missingTables = [];
         foreach ($tables as $name => $tableName) {
-            if (!Schema::hasTable($tableName)) {
+            if (! Schema::hasTable($tableName)) {
                 $missingTables[] = $tableName;
             }
         }
@@ -138,7 +140,7 @@ class VerifyCommand extends Command
 
         return [
             'passed' => false,
-            'error' => 'Missing tables: ' . implode(', ', $missingTables),
+            'error' => 'Missing tables: '.implode(', ', $missingTables),
             'fix' => 'php artisan migrate',
         ];
     }
@@ -150,7 +152,7 @@ class VerifyCommand extends Command
         if ($roleModel && class_exists($roleModel)) {
             return [
                 'passed' => true,
-                'info' => 'Role model: ' . $roleModel,
+                'info' => 'Role model: '.$roleModel,
             ];
         }
 
@@ -168,7 +170,7 @@ class VerifyCommand extends Command
         if ($permissionModel && class_exists($permissionModel)) {
             return [
                 'passed' => true,
-                'info' => 'Permission model: ' . $permissionModel,
+                'info' => 'Permission model: '.$permissionModel,
             ];
         }
 
@@ -181,7 +183,7 @@ class VerifyCommand extends Command
 
     private function checkNovaResources(): array
     {
-        if (!class_exists(\Laravel\Nova\Nova::class)) {
+        if (! class_exists(\Laravel\Nova\Nova::class)) {
             return [
                 'passed' => false,
                 'error' => 'Nova not installed, skipping resource check',
@@ -194,11 +196,11 @@ class VerifyCommand extends Command
 
         $issues = [];
 
-        if (!class_exists($roleResource)) {
+        if (! class_exists($roleResource)) {
             $issues[] = "Role resource not found: {$roleResource}";
         }
 
-        if (!class_exists($permissionResource)) {
+        if (! class_exists($permissionResource)) {
             $issues[] = "Permission resource not found: {$permissionResource}";
         }
 

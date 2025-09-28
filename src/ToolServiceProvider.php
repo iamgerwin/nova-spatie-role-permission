@@ -39,11 +39,11 @@ class ToolServiceProvider extends PackageServiceProvider
     public function packageBooted(): void
     {
         // Check if configuration exists and provide helpful error message
-        if (!config()->has('nova-permission') && !file_exists(config_path('nova-permission.php'))) {
+        if (! config()->has('nova-permission') && ! file_exists(config_path('nova-permission.php'))) {
             // Configuration will use defaults from mergeConfigFrom, but warn in logs
             \Log::warning(
-                'Nova Spatie Role Permission: Configuration file not published. ' .
-                'Using default configuration. To customize, run: ' .
+                'Nova Spatie Role Permission: Configuration file not published. '.
+                'Using default configuration. To customize, run: '.
                 'php artisan vendor:publish --provider="Iamgerwin\NovaSpatieRolePermission\ToolServiceProvider"'
             );
         }
@@ -62,8 +62,8 @@ class ToolServiceProvider extends PackageServiceProvider
                     ]);
                 } catch (\Exception $e) {
                     throw new \Exception(
-                        'Nova Spatie Role Permission configuration error: ' . $e->getMessage() .
-                        '. Please ensure configuration is properly set up. ' .
+                        'Nova Spatie Role Permission configuration error: '.$e->getMessage().
+                        '. Please ensure configuration is properly set up. '.
                         'Run: php artisan vendor:publish --provider="Iamgerwin\NovaSpatieRolePermission\ToolServiceProvider" && php artisan config:clear'
                     );
                 }
