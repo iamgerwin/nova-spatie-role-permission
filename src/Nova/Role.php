@@ -47,7 +47,7 @@ class Role extends Resource
      *
      * @return class-string<\Spatie\Permission\Models\Role>
      */
-    public static function model()
+    public function model()
     {
         return config('permission.models.role', static::$model);
     }
