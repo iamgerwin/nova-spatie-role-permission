@@ -5,6 +5,25 @@ All notable changes to `nova-spatie-role-permission` will be documented in this 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.6] - 2025-09-29
+
+### Fixed
+- **CRITICAL**: Fixed `model()` method returning string instead of model instance causing authorization failures
+- The `model()` method now correctly returns `$this->resource` instead of the configuration string
+- Fixed "Return value must be of type Model|Resource, string returned" error in Nova's authorization system
+- Added proper error handling in `newModel()` method with helpful error messages
+
+### Added
+- `newModel()` static method override for proper custom model instantiation
+- Class existence validation in `newModel()` with descriptive error messages
+- Comprehensive tests for model instance returns and custom model support
+- Tests for error handling when invalid model classes are configured
+
+### Changed
+- `model()` method now returns the actual resource instance instead of configuration string
+- Improved PHPDoc annotations to reflect correct return types
+- Enhanced test suite to validate model method behavior properly
+
 ## [1.1.5] - 2025-09-29
 
 ### Fixed

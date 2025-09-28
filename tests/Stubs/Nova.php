@@ -88,6 +88,13 @@ class Resource
 
     public static $search = ['id'];
 
+    public $resource;
+
+    public function __construct($resource = null)
+    {
+        $this->resource = $resource;
+    }
+
     public function authorizedToCreate($request): bool
     {
         return true;
