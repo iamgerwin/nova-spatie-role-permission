@@ -5,6 +5,22 @@ All notable changes to `nova-spatie-role-permission` will be documented in this 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.4] - 2025-09-29
+
+### Fixed
+- Critical: Initialize `$model` property in Nova resources to prevent "Class name must be a valid object or a string" error
+- Add missing Log facade import in ToolServiceProvider
+- Ensure Nova resources work properly with both default and custom model configurations
+
+### Added
+- `model()` method override in Role and Permission resources for better configuration support
+- Comprehensive tests for model initialization
+- PHPDoc annotations for better IDE support
+
+### Changed
+- Role and Permission resources now initialize with default Spatie models
+- Improved model resolution with proper fallback mechanisms
+
 ## [1.1.3] - 2025-09-29
 
 ### Added

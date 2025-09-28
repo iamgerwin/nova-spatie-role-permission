@@ -7,6 +7,7 @@ namespace Iamgerwin\NovaSpatieRolePermission;
 use Iamgerwin\NovaSpatieRolePermission\Console\Commands\InstallCommand;
 use Iamgerwin\NovaSpatieRolePermission\Console\Commands\VerifyCommand;
 use Iamgerwin\NovaSpatieRolePermission\Http\Middleware\Authorize;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
@@ -41,7 +42,7 @@ class ToolServiceProvider extends PackageServiceProvider
         // Check if configuration exists and provide helpful error message
         if (! config()->has('nova-permission') && ! file_exists(config_path('nova-permission.php'))) {
             // Configuration will use defaults from mergeConfigFrom, but warn in logs
-            \Log::warning(
+            Log::warning(
                 'Nova Spatie Role Permission: Configuration file not published. '.
                 'Using default configuration. To customize, run: '.
                 'php artisan vendor:publish --provider="Iamgerwin\NovaSpatieRolePermission\ToolServiceProvider"'

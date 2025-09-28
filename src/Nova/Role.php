@@ -15,7 +15,12 @@ use Laravel\Nova\Resource;
 
 class Role extends Resource
 {
-    public static $model;
+    /**
+     * The model the resource corresponds to.
+     *
+     * @var class-string<\Spatie\Permission\Models\Role>
+     */
+    public static $model = \Spatie\Permission\Models\Role::class;
 
     public static $title = 'name';
 
@@ -27,9 +32,24 @@ class Role extends Resource
 
     public static $globallySearchable = true;
 
+    /**
+     * Get the model class for the resource.
+     *
+     * @return class-string<\Spatie\Permission\Models\Role>
+     */
     public static function getModel(): string
     {
-        return static::$model ?? config('permission.models.role');
+        return static::$model ?? config('permission.models.role', \Spatie\Permission\Models\Role::class);
+    }
+
+    /**
+     * Get the underlying model instance for the resource.
+     *
+     * @return class-string<\Spatie\Permission\Models\Role>
+     */
+    public static function model()
+    {
+        return config('permission.models.role', static::$model);
     }
 
     public static function label(): string
