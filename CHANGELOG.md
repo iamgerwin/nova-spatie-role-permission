@@ -5,6 +5,25 @@ All notable changes to `nova-spatie-role-permission` will be documented in this 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.3] - 2025-09-29
+
+### Added
+- Automatic configuration merging with default values when config file is not published
+- Installation verification command (`php artisan nova-permission:verify`) for diagnosing setup issues
+- Comprehensive troubleshooting section in README
+- Graceful error handling with helpful messages when configuration is missing
+
+### Fixed
+- "Class name must be a valid object or a string" error when configuration file is not published
+- Package now works with default configuration without requiring manual publishing
+- Improved error messages to guide users through setup issues
+
+### Changed
+- Enhanced ToolServiceProvider to merge default configuration automatically
+- Updated installation instructions with clear step-by-step process
+- Added fallback values for Nova resource configurations
+- Improved documentation with troubleshooting guide and common solutions
+
 ## [1.1.2] - 2025-09-29
 
 ### Fixed

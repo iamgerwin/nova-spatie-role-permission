@@ -26,13 +26,32 @@ A comprehensive Laravel Nova tool for managing roles and permissions with Spatie
 
 ## Installation
 
+### Step 1: Install the package
+
 Install the package via composer:
 
 ```bash
 composer require iamgerwin/nova-spatie-role-permission
 ```
 
-> **Note:** Laravel Nova must be installed and configured in your application before using this package's features. The package can be installed without Nova for development/testing purposes.
+### Step 2: Publish Configuration (Optional but Recommended)
+
+The package includes default configuration, but you can publish it for customization:
+
+```bash
+php artisan vendor:publish --provider="Iamgerwin\NovaSpatieRolePermission\ToolServiceProvider"
+```
+
+### Step 3: Clear Caches
+
+After installation, clear all caches to ensure proper loading:
+
+```bash
+php artisan config:clear
+php artisan cache:clear
+```
+
+### Step 4: Set up Spatie Permissions
 
 Publish and run the migrations from Spatie Laravel Permission if you haven't already:
 
@@ -41,9 +60,28 @@ php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvid
 php artisan migrate
 ```
 
-### Quick Setup
+### Step 5: Register the Tool
 
-Use the installation command to quickly set up the package with default permissions and super-admin role:
+Register the tool in your `NovaServiceProvider`:
+
+```php
+// app/Providers/NovaServiceProvider.php
+
+use Iamgerwin\NovaSpatieRolePermission\NovaSpatieRolePermissionTool;
+
+public function tools()
+{
+    return [
+        new NovaSpatieRolePermissionTool(),
+    ];
+}
+```
+
+> **Note:** Laravel Nova must be installed and configured in your application before using this package's features.
+
+### Quick Setup (Alternative)
+
+For a faster setup, use the installation command which handles most of the above steps:
 
 ```bash
 php artisan nova-permission:install
@@ -84,22 +122,20 @@ This will create `config/nova-permission.php` where you can customize:
 
 ## Usage
 
-### Basic Setup
+### Verify Installation
 
-Register the tool in your `NovaServiceProvider`:
+After installation, verify everything is properly configured:
 
-```php
-// app/Providers/NovaServiceProvider.php
-
-use Iamgerwin\NovaSpatieRolePermission\NovaSpatieRolePermissionTool;
-
-public function tools()
-{
-    return [
-        new NovaSpatieRolePermissionTool(),
-    ];
-}
+```bash
+php artisan nova-permission:verify
 ```
+
+This command will check:
+- Configuration file status
+- Nova and Spatie Permission installation
+- Database migrations
+- Model configurations
+- Nova resource registrations
 
 ### Adding Roles and Permissions to User Resource
 
@@ -368,6 +404,108 @@ composer analyse
 ```
 
 > **Note:** Static analysis excludes Nova-dependent files since Nova is not available during package development. These files are fully functional when Nova is installed in your application.
+
+## Troubleshooting
+
+### Common Issues and Solutions
+
+#### "Class name must be a valid object or a string" Error
+
+This error occurs when the configuration file is not properly loaded. Solutions:
+
+1. **Publish the configuration file** (if not using defaults):
+```bash
+php artisan vendor:publish --provider="Iamgerwin\NovaSpatieRolePermission\ToolServiceProvider"
+php artisan config:clear
+```
+
+2. **Clear all caches**:
+```bash
+php artisan config:clear
+php artisan cache:clear
+php artisan route:clear
+php artisan view:clear
+```
+
+#### Package Not Working After Installation
+
+If the package isn't working after installation:
+
+```bash
+# Clear all caches
+composer dump-autoload
+php artisan config:clear
+php artisan cache:clear
+php artisan nova:publish
+
+# Verify installation
+php artisan nova-permission:verify
+```
+
+#### Missing Permissions or Roles
+
+If permissions or roles aren't showing up:
+
+1. Check if migrations have been run:
+```bash
+php artisan migrate:status
+```
+
+2. Clear the permission cache:
+```bash
+php artisan permission:cache-reset
+```
+
+3. Verify your models are configured correctly:
+```bash
+php artisan nova-permission:verify
+```
+
+#### Authorization Not Working
+
+If users can't access roles/permissions despite having the right permissions:
+
+1. Ensure the user has the correct permissions:
+```php
+// Check in tinker
+php artisan tinker
+>>> User::find(1)->hasPermissionTo('manage-roles')
+```
+
+2. Clear permission cache:
+```bash
+php artisan permission:cache-reset
+```
+
+3. Check if super-admin role is configured:
+```bash
+php artisan nova-permission:verify
+```
+
+### Verification Command
+
+Use the verification command to diagnose installation issues:
+
+```bash
+php artisan nova-permission:verify
+```
+
+This command checks:
+- ✓ Configuration file status
+- ✓ Nova installation
+- ✓ Spatie Permission installation
+- ✓ Database migrations
+- ✓ Model configurations
+- ✓ Nova resource registrations
+
+### Getting Help
+
+If you're still experiencing issues:
+
+1. Run the verification command and include the output in your issue report
+2. Check the [GitHub Issues](https://github.com/iamgerwin/nova-spatie-role-permission/issues)
+3. Review the [CHANGELOG](CHANGELOG.md) for recent changes
+4. Ensure you're using compatible versions (see Requirements section)
 
 ## Changelog
 
