@@ -5,6 +5,18 @@ All notable changes to `nova-spatie-role-permission` will be documented in this 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.5] - 2025-09-29
+
+### Fixed
+- **CRITICAL**: Fixed PHP Fatal error "Cannot make non static method static" by correcting `model()` method signature
+- Changed `model()` method from static to non-static in Role and Permission resources to match parent class
+- Resolved application boot failure caused by incorrect method override
+- Updated tests to properly test non-static model() method
+
+### Changed
+- `model()` method in Nova resources now correctly overrides parent method signature
+- Improved compatibility with Laravel Nova's Resource base class
+
 ## [1.1.4] - 2025-09-29
 
 ### Fixed
