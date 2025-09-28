@@ -27,23 +27,29 @@ class ResourceModelInitializationTest extends TestCase
     /** @test */
     public function role_model_method_returns_configured_model()
     {
+        // Create instance to test non-static model() method
+        $roleResource = new Role(new \Spatie\Permission\Models\Role);
+
         // Test with default configuration
-        $this->assertEquals(\Spatie\Permission\Models\Role::class, Role::model());
+        $this->assertEquals(\Spatie\Permission\Models\Role::class, $roleResource->model());
 
         // Test with custom configuration
         config(['permission.models.role' => 'App\Models\CustomRole']);
-        $this->assertEquals('App\Models\CustomRole', Role::model());
+        $this->assertEquals('App\Models\CustomRole', $roleResource->model());
     }
 
     /** @test */
     public function permission_model_method_returns_configured_model()
     {
+        // Create instance to test non-static model() method
+        $permissionResource = new Permission(new \Spatie\Permission\Models\Permission);
+
         // Test with default configuration
-        $this->assertEquals(\Spatie\Permission\Models\Permission::class, Permission::model());
+        $this->assertEquals(\Spatie\Permission\Models\Permission::class, $permissionResource->model());
 
         // Test with custom configuration
         config(['permission.models.permission' => 'App\Models\CustomPermission']);
-        $this->assertEquals('App\Models\CustomPermission', Permission::model());
+        $this->assertEquals('App\Models\CustomPermission', $permissionResource->model());
     }
 
     /** @test */
