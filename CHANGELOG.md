@@ -5,6 +5,12 @@ All notable changes to `nova-spatie-role-permission` will be documented in this 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.2] - 2025-09-29
+
+### Fixed
+- Fixed `authorizedToCreate` method signature in Role and Permission Nova resources to be properly static
+- Resolved "Cannot make static method non static" error when extending Laravel\Nova\Resource
+
 ## [1.1.1] - 2024-09-28
 
 ### Added
