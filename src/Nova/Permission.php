@@ -164,7 +164,7 @@ class Permission extends Resource
         ];
     }
 
-    public function authorizedToCreate($request): bool
+    public static function authorizedToCreate($request): bool
     {
         return $request->user()?->can('create', static::getModel()) ?? false;
     }

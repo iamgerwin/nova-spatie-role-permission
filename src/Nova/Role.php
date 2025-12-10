@@ -11,6 +11,7 @@ use Laravel\Nova\Fields\MorphToMany;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Nova;
 use Laravel\Nova\Resource;
 
 class Role extends Resource
@@ -157,7 +158,7 @@ class Role extends Resource
         return [];
     }
 
-    public function authorizedToCreate($request): bool
+    public static function authorizedToCreate($request): bool
     {
         return $request->user()?->can('create', static::getModel()) ?? false;
     }
