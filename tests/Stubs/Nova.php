@@ -95,7 +95,7 @@ class Resource
         $this->resource = $resource;
     }
 
-    public function authorizedToCreate($request): bool
+    public static function authorizedToCreate($request): bool
     {
         return true;
     }
