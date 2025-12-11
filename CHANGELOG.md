@@ -5,6 +5,23 @@ All notable changes to `nova-spatie-role-permission` will be documented in this 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.7] - 2025-12-11
+
+### Fixed
+- **CRITICAL**: Fixed `authorizedToCreate()` method signature to be static in Role and Permission resources
+- Resolves "Cannot make static method non static" fatal error on Nova 5.7.5+
+- Added missing `use Laravel\Nova\Nova;` import in Role resource
+- Updated test stubs to match Nova 5.7.5 method signatures
+
+### Changed
+- `authorizedToCreate()` is now properly static to match Laravel Nova 5.7.5's `Authorizable` trait
+- Nova stub classes in test suite now reflect correct method signatures
+
+### Compatibility
+- Full support for Laravel Nova 5.7.5 and later
+- Continues to support Laravel 11 and 12
+- Requires PHP 8.3+
+
 ## [1.1.6] - 2025-09-29
 
 ### Fixed
